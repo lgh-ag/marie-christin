@@ -59,8 +59,39 @@
     </table>
     <a href="https://github.com/lgh-ag/lghag.de" >Unsere Website</a>
     <script>
+     var json = '[{"start":"2022-02-12T00:00Z","end":"2022-02-20T00:00Z","year":2022,"stateCode":"TH","name":"winterferien","slug":"winterferien-2022-TH"},{"start":"2022-04-11T00:00Z","end":"2022-04-24T00:00Z","year":2022,"stateCode":"TH","name":"osterferien","slug":"osterferien-2022-TH"},{"start":"2022-05-27T00:00Z","end":"2022-05-28T00:00Z","year":2022,"stateCode":"TH","name":"pfingstferien","slug":"pfingstferien-2022-TH"},{"start":"2022-07-18T00:00Z","end":"2022-08-28T00:00Z","year":2022,"stateCode":"TH","name":"sommerferien","slug":"sommerferien-2022-TH"},{"start":"2022-10-17T00:00Z","end":"2022-10-30T00:00Z","year":2022,"stateCode":"TH","name":"herbstferien","slug":"herbstferien-2022-TH"},{"start":"2022-12-22T00:00Z","end":"2023-01-04T00:00Z","year":2022,"stateCode":"TH","name":"weihnachtsferien","slug":"weihnachtsferien-2022-TH"}]';
+
+     const obj = JSON.parse(json);
+
       function getSecounds() {
-        document.getElementById("ferienZähler").innerText = new Date().getSeconds();
+        var ferienDate = Date.parse(obj[0].start)
+        var currentDate = Date.now();
+
+        var milli = ferienDate - currentDate;
+        var abgezogen = 0;
+
+        var wochen = Math.floor(milli /1000 / 60 / 60 / 24 / 7);
+        abgezogen = abgezogen + wochen * 1000 * 60 * 60 * 24 * 7;
+        console.log(wochen);
+
+        var tage = Math.floor((milli - abgezogen) / 1000 / 60 / 60 / 24);
+        abgezogen = abgezogen + tage * 1000 * 60 * 60 * 24; 
+        console.log(tage);
+        
+        var stunden = Math.floor((milli - abgezogen) / 1000 / 60 / 60);
+        abgezogen = abgezogen + stunden * 1000 * 60 * 60;
+        console.log(stunden);
+        
+        var minuten = Math.floor((milli - abgezogen) / 1000 / 60);
+        abgezogen = abgezogen + minuten * 1000 * 60; 
+        console.log(minuten);
+        
+        var sekunden = Math.floor((milli - abgezogen) / 1000);
+        console.log(sekunden);
+        
+       console.log("-----------------------------------")
+
+        document.getElementById("ferienZähler").innerText = "Das sind : " + wochen + " Wochen, " + tage + " Tage, " + stunden + " Stunden, " + minuten + " Minuten, " + sekunden + "Sekunden, "
         setTimeout(getSecounds, 1000);  
       }
 
