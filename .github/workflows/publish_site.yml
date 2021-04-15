@@ -1,0 +1,40 @@
+name: Publish Site
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Init
+        run: git init .
+
+      - name: Login
+        run: git remote add origin https://${{ secrets.ACTIONS_USERNAME }}:${{ secrets.ACTIONS_SECRET }}@github.com/${{ secrets.ACTIONS_ORG }}/${{ secrets.ACTIONS_REPO }}.git
+
+      - name: Add identity email
+        run: git config --global user.email "actions@github.com"
+
+      - name: Add identity name
+        run: git config --global user.name "Actions Bot"
+
+      - name: Pull
+        run: git pull origin main
+
+      - name: Init submodules
+        run: git submodule init
+
+      - name: Update submodules
+        run: git submodule update
+
+      - name: Refresh submodules
+        run: git submodule foreach git pull origin master
+
+      - name: Commit
+        run: git commit -am "Refresh triggered by ${{ github.repository }}"
+
+      - name: Push
+        run: git push origin HEAD:main
