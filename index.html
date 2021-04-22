@@ -8,6 +8,16 @@
     <h1>Ferien-Countdown</h1>
     <p id="ferienZähler">4 Wochen, 6 Tage, 5 Stunden, 2 Minuten, 7 Sekunden</p>
     <h3>bis zu den Sommerferien!</h3>
+    <select id="ferienAuswahl">
+      <option value="winterferien-2022-TH">Winterferien</option>
+      <option value="osterferien-2022-TH">Osterferien</option>
+      <option value="pfingstferien-2022-TH">Pfingstferien</option>
+      <option value="sommerferien-2022-TH">Sommerferien</option>
+      <option value="herbstferien-2022-TH">Herbstferien</option>
+      <option value="weihnachtsferien-2022-TH">Weihnachtsferien</option>
+    </select>
+    <br>
+    <br>
     <br>
     <table border="">
       <thead>
@@ -107,6 +117,13 @@ oReq.send();
         setTimeout(getSecounds, 1000);  
       }
 
+      var select = document.getElementByid("ferienAuswahl");
+
+      function selectChange() { 
+       console.log(select.value);
+    }
+
+      select.onchange = selectChange;
     </script>
   </body>
 </html>  
