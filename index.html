@@ -6,7 +6,7 @@
   <body>
     <!--  <{tag} {attribut}>{content}</{tag}> -->
     <h1>Ferien-Countdown</h1>
-    <p id="ferienZähler">4 Wochen, 6 Tage, 5 Stunden, 2 Minuten, 7 Sekunden</p>
+    <p id="ferienZähler">Loading dates...</p>
     <h3 id="ferienArt">bis zu den Sommerferien!</h3>
     <select id="ferienAuswahl">
       <option value="winterferien-2022-TH">Winterferien</option>
@@ -119,8 +119,10 @@ oReq.send();
       var select = document.getElementById("ferienAuswahl");
 
       function selectChange() { 
-        ferienDate = Date.parse(_.where(obj, {"slug":select.value})[0].start);
-        document.getElementById("ferienArt").innerHTML = "bis zu den "+ _.where(obj, {"slug":select.value})[0].name +"!";
+        ferienDate = Date.parse(_.where(obj, {"slug": select.value})[0].start);
+        var ferien = _.where(obj, {"slug": select.value})[0].name;
+        document.getElementById("ferienArt").innerHTML = "bis zu den "+ ferien.slice(0, 1).toUpperCase() + ferien.slice(1) + "!";
+        getSecounds();
       }
 
       select.onchange = selectChange;
