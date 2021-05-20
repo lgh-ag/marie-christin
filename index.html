@@ -19,7 +19,7 @@
     <br>
     <br>
     <br>
-    <table border="">
+    <table id="datenTabelle" border="">
       <thead>
         <tr>
           <td>
@@ -33,41 +33,7 @@
           </td>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-        <td>
-          <p>Sommerferien</p>
-        </td>
-        <td>
-          <p>23.07.2021</p>
-        </td>
-        <td>
-          <p>01.09.2021</p>
-        </td>
-      </tr>
-      <tr>
-      <td>
-        <p>Osterferien</p>
-      </td>
-      <td>
-        <p>11.04.2021</p>
-      </td>
-      <td>
-        <p>28.04.2021</p>
-      </td>
-    </tr>
-    <tr>
-    <td>
-      <p>Herbstferien</p>
-    </td>
-    <td>
-      <p>08.10.2021</p>
-    </td>
-    <td>
-      <p>20.10.2021</p>
-    </td>
-    </tr>
-     <tbody>
+
     </table>
     <a href="https://github.com/lgh-ag/lghag.de" >Unsere Website</a>
     
@@ -84,6 +50,7 @@
       
       selectChange();
       getSecounds();  
+      tabelleDatenHolen();
     }
 
 var oReq = new XMLHttpRequest();
@@ -126,6 +93,24 @@ oReq.send();
       }
 
       select.onchange = selectChange;
+
+function tabelleDatenHolen() {
+   var i;
+   for (i = 0; i < obj.length; i++) {
+    tabelleAusfuellen(i + 1, obj[i].name, obj[i].start, obj[i].end);
+   }
+}
+
+    function tabelleAusfuellen(targetRow, cell1text, cell2text, cell3text) {
+      var table = document.getElementById("datenTabelle");
+      var row = table.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      cell1.innerHTML = cell1text;
+      cell2.innerHTML = cell2text;
+      cell3.innerHTML = cell3text;
+  }
     </script>
   </body>
 </html>  
