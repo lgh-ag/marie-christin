@@ -9,12 +9,12 @@
     <p id="ferienZähler">Loading dates...</p>
     <h3 id="ferienArt">bis zu den Sommerferien!</h3>
     <select id="ferienAuswahl">
-      <option value="winterferien-2022-TH">Winterferien</option>
-      <option value="osterferien-2022-TH">Osterferien</option>
-      <option value="pfingstferien-2022-TH">Pfingstferien</option>
-      <option value="sommerferien-2022-TH">Sommerferien</option>
-      <option value="herbstferien-2022-TH">Herbstferien</option>
-      <option value="weihnachtsferien-2022-TH">Weihnachtsferien</option>
+      <option value="winterferien-">Winterferien</option>
+      <option value="osterferien-">Osterferien</option>
+      <option value="pfingstferien-">Pfingstferien</option>
+      <option value="sommerferien-">Sommerferien</option>
+      <option value="herbstferien-">Herbstferien</option>
+      <option value="weihnachtsferien-">Weihnachtsferien</option>
     </select>
     <br>
     <br>
@@ -33,7 +33,8 @@
           </td>
         </tr>
         </thead>
-
+        <tbody>
+        </tbody>
     </table>
     <a href="https://github.com/lgh-ag/lghag.de" >Unsere Website</a>
     
@@ -55,7 +56,7 @@
 
 var oReq = new XMLHttpRequest();
 oReq.addEventListener("load", reqListener);
-oReq.open("GET", "https://lgh-ag-cors.herokuapp.com/https://ferien-api.de/api/v1/holidays/TH/2022");
+oReq.open("GET", "https://lgh-ag-cors.herokuapp.com/https://ferien-api.de/api/v1/holidays/TH/" + new Date().getFullYear());
 oReq.setRequestHeader("x-requested-with", "lghag.de");
 oReq.send();
 
@@ -86,18 +87,19 @@ oReq.send();
       var select = document.getElementById("ferienAuswahl");
 
       function selectChange() { 
-        ferienDate = Date.parse(_.where(obj, {"slug": select.value})[0].start);
-        var ferien = _.where(obj, {"slug": select.value})[0].name;
+        ferienDate = Date.parse(_.where(obj, {"slug": select.value + new Date().getFullYear() + "-TH"})[0].start);
+        var ferien = _.where(obj, {"slug": select.value + new Date().getFullYear() + "-TH"})[0].name;
         document.getElementById("ferienArt").innerHTML = "bis zu den "+ ferien.slice(0, 1).toUpperCase() + ferien.slice(1) + "!";
         getSecounds();
       }
+
 
       select.onchange = selectChange;
 
 function tabelleDatenHolen() {
    var i;
    for (i = 0; i < obj.length; i++) {
-    tabelleAusfuellen(i + 1, obj[i].name, obj[i].start, obj[i].end);
+    tabelleAusfuellen(i + 1, obj[i].name, new Date(obj[i].start), new Date(obj[i].end));
    }
 }
 
@@ -107,9 +109,9 @@ function tabelleDatenHolen() {
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
       var cell3 = row.insertCell(2);
-      cell1.innerHTML = cell1text;
-      cell2.innerHTML = cell2text;
-      cell3.innerHTML = cell3text;
+      cell1.innerHTML = cell1text.slice(0, 1).toUpperCase() + cell1text.getFullYear();
+      cell2.innerHTML = cell2text.getDate() + "." + cell2text.getMonth() + "." + cell2text.getFullYear();
+      cell3.innerHTML = cell3text.getDate() + "." + cell3text.getMonth() + "." + cell3text.getFullYear();
   }
     </script>
   </body>
