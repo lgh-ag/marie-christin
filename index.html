@@ -109,7 +109,7 @@ function tabelleDatenHolen() {
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
       var cell3 = row.insertCell(2);
-      cell1.innerHTML = cell1text.slice(0, 1).toUpperCase() + cell1text.getFullYear();
+      cell1.innerHTML = cell1text.slice(0, 1).toUpperCase() + cell1text.slice(1);
       cell2.innerHTML = cell2text.getDate() + "." + cell2text.getMonth() + "." + cell2text.getFullYear();
       cell3.innerHTML = cell3text.getDate() + "." + cell3text.getMonth() + "." + cell3text.getFullYear();
   }
